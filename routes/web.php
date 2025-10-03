@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\KomponenGajiController;
 
 // Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -27,4 +28,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/anggota/{id_anggota}/edit', [AnggotaController::class, 'edit'])->name('admin.anggota.edit');
     Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name('admin.anggota.update');
     Route::delete('/anggota/{id_anggota}', [AnggotaController::class, 'destroy'])->name('admin.anggota.destroy');
+    // ------------------ Komponen Gaji Management ------------------
+    Route::get('/komponen_gaji', [KomponenGajiController::class, 'adminIndex'])->name('admin.komponen_gaji.index');
+    Route::get('/komponen_gaji/create', [KomponenGajiController::class, 'create'])->name('admin.komponen_gaji.create');
+    Route::post('/komponen_gaji', [KomponenGajiController::class, 'store'])->name('admin.komponen_gaji.store');
+    Route::get('/komponen_gaji/{id_komponen_gaji}/edit', [KomponenGajiController::class, 'edit'])->name('admin.komponen_gaji.edit');
+    Route::put('/komponen_gaji/{id_komponen_gaji}', [KomponenGajiController::class, 'update'])->name('admin.komponen_gaji.update');
+    Route::delete('/komponen_gaji/{id_komponen_gaji}', [KomponenGajiController::class, 'destroy'])->name('admin.komponen_gaji.destroy');
 });
