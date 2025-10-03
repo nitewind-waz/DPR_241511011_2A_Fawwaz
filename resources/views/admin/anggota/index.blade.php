@@ -1,4 +1,5 @@
 @extends('layouts.app')
+{{--  --}}
 
 @section('content')
 <div class="container">
@@ -34,6 +35,6 @@
             @endforeach
         </tbody>
     </table>
-    {{-- <a href="{{ route('admin.students.create') }}" class="btn btn-warning btn-sm">Add Student</a> --}}
+    <a href="{{ route('admin.anggota.create') }}" class="btn btn-warning btn-sm">Add Anggota</a>
 </div>
 @endsection

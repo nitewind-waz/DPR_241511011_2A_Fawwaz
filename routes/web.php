@@ -5,10 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AnggotaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -16,6 +12,7 @@ Route::post('/login', [AuthController::class, 'login']);
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Menu Utama
 Route::get('/', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
