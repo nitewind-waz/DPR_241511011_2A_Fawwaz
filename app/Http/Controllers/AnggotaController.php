@@ -59,4 +59,35 @@ class AnggotaController extends Controller
         return redirect()->route('admin.anggota.index')->with('success', 'Anggota deleted successfully!');
     }
 
+    public function edit($id_anggota)
+    {
+        $anggota = Anggota::findOrfail($id_anggota);
+        return view('admin.anggota.edit', compact('anggota'));
+    }
+
+    public function update(Request $request, $id_anggota)
+    {
+        $request->validate([
+            'nama_depan'        => 'required|string|max:100',
+            'nama_belakang'     => 'nullable|string|max:100',
+            'gelar_depan'       => 'nullable|string|max:50',
+            'gelar_belakang'    => 'nullable|string|max:50',
+            'jabatan'           => 'required|string|in:Ketua,Wakil Ketua,Anggota',
+            'status_pernikahan' => 'required|string|in:Kawin,Belum Kawin',
+        ]);
+
+        $anggota = Anggota::findOrFail($id_anggota);
+
+        $anggota->update([
+            'nama_depan'        => $request->nama_depan,
+            'nama_belakang'     => $request->nama_belakang,
+            'gelar_depan'       => $request->gelar_depan,
+            'gelar_belakang'    => $request->gelar_belakang,
+            'jabatan'           => $request->jabatan,
+            'status_pernikahan' => $request->status_pernikahan,
+        ]);
+
+        return redirect()->route('admin.anggota.index')->with('success', 'Anggota updated successfully!');
+    }
+
 }

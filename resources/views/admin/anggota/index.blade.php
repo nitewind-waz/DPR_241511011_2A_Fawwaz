@@ -22,7 +22,7 @@
                 <td> {{ $agt->status_pernikahan }} </td>
                 <td>
                     <p>
-                    {{-- <a href="{{ route('admin.anggota.edit', $agt->anggota_id) }}" class="btn btn-warning btn-sm">Edit</a> --}}
+                    <a href="{{ route('admin.anggota.edit', $agt->id_anggota) }}" class="btn btn-warning btn-sm">Edit</a>
                 </td>
                 <td>
                     <form action="{{ route('admin.anggota.destroy', $agt->id_anggota) }}" method="POST" style="display:inline;">
