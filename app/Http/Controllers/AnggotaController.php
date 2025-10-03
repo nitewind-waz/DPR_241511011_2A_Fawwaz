@@ -51,9 +51,12 @@ class AnggotaController extends Controller
                         ->with('success', 'Data anggota berhasil ditambahkan!');
     }
 
-    public function destroy(Request $request)
+    public function destroy($id_anggota)
     {
+        $anggota = Anggota::findOrFail($id_anggota);
+        $anggota->delete();
 
+        return redirect()->route('admin.anggota.index')->with('success', 'Anggota deleted successfully!');
     }
 
 }
