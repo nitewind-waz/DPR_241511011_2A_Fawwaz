@@ -40,6 +40,6 @@
             @endforeach
         </tbody>
     </table>
-    <a href="{{ route('admin.anggota.create') }}" class="btn btn-warning btn-sm">Add</a>
+    <a href="{{ route('admin.komponen_gaji.create') }}" class="btn btn-warning btn-sm">Add</a>
 </div>
 @endsection
