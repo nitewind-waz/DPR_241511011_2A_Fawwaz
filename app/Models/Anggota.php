@@ -22,5 +22,11 @@ class Anggota extends Model
         'jabatan',
         'status_pernikahan'
     ];
+
+    public function komponenGaji()
+    {
+        return $this->belongsToMany(KomponenGaji::class, 'penggajian', 'id_anggota', 'id_komponen_gaji');
+    }
+
 }
 

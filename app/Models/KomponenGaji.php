@@ -21,4 +21,10 @@ class KomponenGaji extends Model
         'nominal',
         'satuan',
     ];
+
+    public function anggota()
+    {
+        return $this->belongsToMany(Anggota::class, 'penggajian', 'id_komponen_gaji', 'id_anggota');
+    }
+
 }
