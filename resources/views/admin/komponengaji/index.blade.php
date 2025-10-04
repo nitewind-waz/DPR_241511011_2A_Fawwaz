@@ -30,11 +30,11 @@
                     {{-- <a href="{{ route('admin.anggota.edit', $agt->id_anggota) }}" class="btn btn-warning btn-sm">Edit</a> --}}
                 </td>
                 <td>
-                    {{-- <form action="{{ route('admin.anggota.destroy', $agt->id_anggota) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('admin.komponen_gaji.destroy', $k->id_komponen_gaji) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
-                    </form> --}}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

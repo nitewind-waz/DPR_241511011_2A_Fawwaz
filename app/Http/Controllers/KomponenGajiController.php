@@ -44,4 +44,12 @@ class KomponenGajiController extends Controller
         return redirect()->route('admin.komponen_gaji.index')
                          ->with('success', 'Komponen gaji berhasil ditambahkan!');
     }
+
+    public function destroy($id_komponen_gaji)
+    {
+        $kGaji = KomponenGaji::findOrFail($id_komponen_gaji);
+        $kGaji->delete();
+
+        return redirect()->route('admin.komponen_gaji.index')->with('success', 'Komponen gaji deleted successfully!');
+    }
 }
