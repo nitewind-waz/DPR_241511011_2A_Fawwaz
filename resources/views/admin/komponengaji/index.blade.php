@@ -27,7 +27,7 @@
                 <td> {{ $k->nominal }} </td>
                 <td> {{ $k->satuan }} </td>
                 <td>
-                    {{-- <a href="{{ route('admin.anggota.edit', $agt->id_anggota) }}" class="btn btn-warning btn-sm">Edit</a> --}}
+                    <a href="{{ route('admin.komponen_gaji.edit', $k->id_komponen_gaji) }}" class="d-inline btn btn-warning btn-sm">Edit</a>
                 </td>
                 <td>
                     <form action="{{ route('admin.komponen_gaji.destroy', $k->id_komponen_gaji) }}" method="POST" style="display:inline;">

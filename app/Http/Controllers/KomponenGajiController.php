@@ -22,8 +22,8 @@ class KomponenGajiController extends Controller
     {
         $request->validate([
             'nama_komponen' => 'required|string|max:100',
-            'kategori' => 'required',
-            'jabatan' => 'required',
+            'kategori' => 'required|string|in:Gaji Pokok,Tunjangan Melekat,Tunjangan Lain',
+            'jabatan' => 'required|Semua,Ketua,Anggota,Wakil Ketua',
             'nominal' => 'required|numeric',
             'satuan' => 'required',
         ]);
@@ -52,4 +52,39 @@ class KomponenGajiController extends Controller
 
         return redirect()->route('admin.komponen_gaji.index')->with('success', 'Komponen gaji deleted successfully!');
     }
+
+    public function edit($id_komponen_gaji)
+    {
+        $komponen = KomponenGaji::findOrFail($id_komponen_gaji);
+        return view('admin.komponengaji.edit', compact('komponen'));
+    }
+
+    public function update(Request $request, $id_komponen_gaji)
+    {
+        // Validasi input
+        $request->validate([
+            'nama_komponen' => 'required|string|max:100',
+            'kategori' => 'required|string|in:Gaji Pokok,Tunjangan Melekat,Tunjangan Lain',
+            'jabatan' => 'required|string|in:Semua,Ketua,Anggota,Wakil Ketua',
+            'nominal' => 'required|numeric',
+            'satuan' => 'required|string|max:50',
+        ]);
+
+        // Ambil data yang mau diupdate
+        $komponen = KomponenGaji::findOrFail($id_komponen_gaji);
+
+        // Update data
+        $komponen->update([
+            'nama_komponen' => $request->nama_komponen,
+            'kategori'      => $request->kategori,
+            'jabatan'       => $request->jabatan,
+            'nominal'       => $request->nominal,
+            'satuan'        => $request->satuan,
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('admin.komponen_gaji.index')
+                        ->with('success', 'Komponen gaji berhasil diperbarui!');
+    }
+
 }

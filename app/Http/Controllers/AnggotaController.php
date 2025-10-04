@@ -35,7 +35,6 @@ class AnggotaController extends Controller
         $lastId = Anggota::max('id_anggota');  
         $newId = $lastId ? $lastId + 1 : 101; // kalau kosong mulai dari 101
         
-        // dd('masuk store');
         // Simpan data baru dengan id_anggota manual
         Anggota::create([
             'id_anggota'        => $newId,
