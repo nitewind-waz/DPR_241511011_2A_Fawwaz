@@ -8,6 +8,7 @@ use App\Models\KomponenGaji;
 
 class PenggajianController extends Controller
 {
+    // POV ADMIN
     public function adminIndex(Request $request)
     {
         $search = $request->input('search');
@@ -18,7 +19,7 @@ class PenggajianController extends Controller
             })
             ->get();
 
-        return view('penggajian.index', compact('data'));
+        return view('admin.penggajian.index', compact('data'));
     }
 
     public function create()
@@ -46,7 +47,7 @@ class PenggajianController extends Controller
         $anggota = Anggota::with('komponenGaji')->findOrFail($id);
         $komponen = KomponenGaji::all();
 
-        return view('penggajian.edit', compact('anggota', 'komponen'));
+        return view('admin.penggajian.edit', compact('anggota', 'komponen'));
     }
 
     public function update(Request $request, $id)

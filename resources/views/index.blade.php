@@ -113,7 +113,7 @@ body {
     <div class="container">
         <div class="dashboard-card">
             <div class="welcome-header">
-                <h2>Selamat datang, {{ Auth::user()->nama_depan }} 👋</h2>
+                <h2>Selamat datang, {{ Auth::user()->nama_depan }}</h2>
                 <p>Anda masuk sebagai <strong>{{ Auth::user()->role }}</strong></p>
             </div>
 
@@ -141,10 +141,16 @@ body {
                         <a href="{{ route('admin.penggajian.index') }}">Kelola</a>
                     </div>
                 </div>
+
+            {{-- Jika Bukan Admin --}}
             @else
-                {{-- Jika bukan admin --}}
-                <div class="text-center">
-                    <p class="fs-5 text-muted">Halo {{ Auth::user()->nama_depan }}, saat ini Anda tidak memiliki akses ke fitur administrasi.</p>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <i class="bi bi-cash-stack"></i>
+                        <h5>Lihat Penggajian DPR</h5>
+                        <p>Lihat rincian gaji dan tunjangan anggota DPR.</p>
+                        <a href="{{ route('penggajian.index') }}">Lihat</a>
+                    </div>
                 </div>
             @endif
 
