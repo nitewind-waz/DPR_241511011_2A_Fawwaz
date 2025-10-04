@@ -45,7 +45,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
 
     // ------------------ Penggajian Management ------------------
-    Route::get('/penggajian', [PenggajianController::class, 'index'])->name('admin.penggajian.index');
+    Route::get('/penggajian', [PenggajianController::class, 'adminIndex'])->name('admin.penggajian.index');
 
     Route::middleware('role:Admin')->group(function () {
         Route::get('/penggajian/create', [PenggajianController::class, 'create'])->name('admin.penggajian.create');

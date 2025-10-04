@@ -1,135 +1,157 @@
 @extends('layouts.app')
 
-<script>
-
-</script>
-
 <style>
 body {
-    background-color: #f8f9fa;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
 }
 
 .dashboard-container {
-    padding: 2rem 0;
+    padding: 3rem 0;
 }
 
 .dashboard-card {
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e9ecef;
-    margin-bottom: 2rem;
-}
-
-.card-header-simple {
-    background: white;
-    border-bottom: 1px solid #e9ecef;
-    padding: 1.5rem 2rem;
-    border-radius: 12px 12px 0 0;
-}
-
-.card-header-simple h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #212529;
-}
-
-.card-body-simple {
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: none;
+    overflow: hidden;
     padding: 2rem;
 }
 
-.welcome-text {
-    color: #495057;
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
+.welcome-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.user-info {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
+.welcome-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.welcome-header p {
+    color: #6b7280;
+    font-size: 1.1rem;
+}
+
+.management-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.management-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.user-info p {
-    margin: 0.5rem 0;
-    color: #495057;
-    font-size: 1rem;
+.management-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    background-color: #fff;
 }
 
-.user-info strong {
-    color: #212529;
+.management-card i {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 1rem;
 }
 
-.role-description {
-    color: #6c757d;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+.management-card h5 {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
 }
 
-.btn-simple {
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-weight: 500;
+.management-card p {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.management-card a {
     text-decoration: none;
     display: inline-block;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    color: white;
-    text-decoration: none;
-}
-
-.btn-primary {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
     background-color: #007bff;
     color: white;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
 
-.btn-primary:hover {
+.management-card a:hover {
     background-color: #0056b3;
+}
+
+.logout-btn {
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
+    background-color: #dc3545;
     color: white;
-    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #bb2d3b;
 }
 </style>
 
 @section('content')
 <div class="dashboard-container">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="dashboard-card">
-                    <div class="card-body-simple">
-                        <h5 class="welcome-text">Selamat datang <strong>{{ Auth::user()->nama_depan }}</strong>!</h5>
+        <div class="dashboard-card">
+            <div class="welcome-header">
+                <h2>Selamat datang, {{ Auth::user()->nama_depan }} 👋</h2>
+                <p>Anda masuk sebagai <strong>{{ Auth::user()->role }}</strong></p>
+            </div>
 
-                        @if (Auth::user()->role == 'Public')
-                            
-                        @elseif (Auth::user()->role == 'Admin')
-                            <a href="{{ route('admin.anggota.index') }}" class="btn-simple btn-primary">
-                                Kelola Students
-                            </a>
-                        @endif
-                        <div class="mt-auto">
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger w-100">Logout</button>
-                            </form>
-                        </div>
+            {{-- Jika Admin --}}
+            @if (Auth::user()->role == 'Admin')
+                <div class="management-grid">
+                    <div class="management-card">
+                        <i class="bi bi-people-fill"></i>
+                        <h5>Kelola Anggota</h5>
+                        <p>Tambah, edit, dan hapus data anggota.</p>
+                        <a href="{{ route('admin.anggota.index') }}">Kelola</a>
+                    </div>
+
+                    <div class="management-card">
+                        <i class="bi bi-cash-coin"></i>
+                        <h5>Kelola Komponen Gaji</h5>
+                        <p>Atur jenis gaji, tunjangan, dan satuannya.</p>
+                        <a href="{{ route('admin.komponen_gaji.index') }}">Kelola</a>
+                    </div>
+
+                    <div class="management-card">
+                        <i class="bi bi-wallet2"></i>
+                        <h5>Kelola Penggajian</h5>
+                        <p>Proses dan kelola data penggajian anggota.</p>
+                        <a href="{{ route('admin.penggajian.index') }}">Kelola</a>
                     </div>
                 </div>
-            </div>
+            @else
+                {{-- Jika bukan admin --}}
+                <div class="text-center">
+                    <p class="fs-5 text-muted">Halo {{ Auth::user()->nama_depan }}, saat ini Anda tidak memiliki akses ke fitur administrasi.</p>
+                </div>
+            @endif
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
         </div>
     </div>
 </div>

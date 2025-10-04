@@ -14,12 +14,13 @@
         @endif
     </form>
 
-    <table class="table table-bordered">
-        <thead>
+    <table class="table table-bordered align-middle">
+        <thead class="table-light">
             <tr>
                 <th>Nama Anggota</th>
                 <th>Komponen Gaji</th>
                 <th>Total Gaji</th>
+                <th width="160">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -29,25 +30,29 @@
                     <td>
                         <ul class="mb-0">
                             @foreach($anggota->komponenGaji as $komponen)
-                                <li>
-                                    {{ $komponen->nama_komponen }}
-                                    (Rp{{ number_format($komponen->nominal, 2, ',', '.') }})
-                                </li>
+                                <li>{{ $komponen->nama_komponen }} (Rp{{ number_format($komponen->nominal, 2, ',', '.') }})</li>
                             @endforeach
                         </ul>
                     </td>
+                    <td><strong>Rp{{ number_format($anggota->komponenGaji->sum('nominal'), 2, ',', '.') }}</strong></td>
                     <td>
-                        Rp{{ number_format($anggota->komponenGaji->sum('nominal'), 2, ',', '.') }}
+                        <a href="{{ route('admin.penggajian.edit', $anggota->id_anggota) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.penggajian.destroy', $anggota->id_anggota) }}" method="POST" class="d-inline"
+                              onsubmit="return confirm('Yakin ingin menghapus data penggajian ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger">Hapus</button>
+                        </form>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center">Data tidak ditemukan.</td>
+                    <td colspan="4" class="text-center">Data tidak ditemukan.</td>
                 </tr>
             @endforelse
-        </tbody>
+        </tbody>a
     </table>
 
-    <a href="{{ route('admin.penggajian.create') }}" class="btn btn-primary">Tambah Penggajian</a>
+    <a href="{{ route('admin.penggajian.create') }}" class="btn btn-primary mt-2">Tambah Penggajian</a>
 </div>
 @endsection
